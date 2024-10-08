@@ -129,6 +129,10 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
       };
       const baseUrl = getStreamlitBaseUrl() ?? ""
       bgImage.src = baseUrl + backgroundImageURL
+      console.log(baseUrl);
+      console.log(backgroundImageURL);
+      console.log(bgImage.src);
+      console.log();
     }
   }, [
     canvas,
