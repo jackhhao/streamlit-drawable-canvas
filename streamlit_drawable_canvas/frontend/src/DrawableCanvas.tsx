@@ -128,7 +128,7 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
         backgroundCanvas.getContext().drawImage(bgImage, 0, 0);
       };
       const baseUrl = getStreamlitBaseUrl() ?? ""
-      bgImage.src = baseUrl + backgroundImageURL
+      bgImage.src = baseUrl + "/~/+" + backgroundImageURL // proper full link for streamlit media
       console.log(baseUrl);
       console.log(backgroundImageURL);
       console.log(bgImage.src);
@@ -166,6 +166,9 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
       strokeColor: strokeColor,
       displayRadius: displayRadius
     })
+
+    console.log(`Selected fillColor: ${fillColor}`);
+    console.log(`Selected strokeColor: ${strokeColor}`);
 
     canvas.on("mouse:up", (e: any) => {
       saveState(canvas.toJSON())

@@ -118,6 +118,9 @@ const canvasStateReducer = (
         }
       }
     case "undo":
+      const lastState = state.history.undoStack[state.history.undoStack.length - 1];
+      console.log("Undo - Current state:", state.currentState); // Log the current state
+      console.log("Undo - Last state:", lastState); // Log the state being undone to
       if (
         isEmpty(state.currentState) ||
         isEqual(state.initialState, state.currentState)
