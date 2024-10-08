@@ -6,8 +6,10 @@ class FreedrawTool extends FabricTool {
     strokeColor,
   }: ConfigureCanvasProps): () => void {
     this._canvas.isDrawingMode = true
-    this._canvas.freeDrawingBrush.width = strokeWidth
-    this._canvas.freeDrawingBrush.color = strokeColor
+    if (this._canvas.freeDrawingBrush) {
+      this._canvas.freeDrawingBrush.width = strokeWidth
+      this._canvas.freeDrawingBrush.color = strokeColor
+    }
     return () => {}
   }
 }

@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { Circle,Line,Path } from "fabric"
 import FabricTool, { ConfigureCanvasProps } from "./fabrictool"
 
 class PolygonTool extends FabricTool {
@@ -6,9 +6,9 @@ class PolygonTool extends FabricTool {
   fillColor: string = "#ffffff"
   strokeWidth: number = 10
   strokeColor: string = "#ffffff"
-  startCircle: fabric.Circle = new fabric.Circle()
-  currentLine: fabric.Line = new fabric.Line()
-  currentPath: fabric.Path = new fabric.Path()
+  startCircle: Circle = new Circle()
+  currentLine: Line = new Line()
+  currentPath: Path = new Path([])
   _pathString: string = "M "
 
   configureCanvas({
@@ -49,9 +49,9 @@ class PolygonTool extends FabricTool {
     this.isMouseDown = true
     var pointer = canvas.getPointer(o.e)
 
-    var points = [pointer.x, pointer.y, pointer.x, pointer.y]
+    var points: [number, number, number, number] = [pointer.x, pointer.y, pointer.x, pointer.y]
     canvas.remove(this.currentLine)
-    this.currentLine = new fabric.Line(points, {
+    this.currentLine = new Line(points, {
       strokeWidth: this.strokeWidth,
       fill: this.strokeColor,
       stroke: this.strokeColor,
@@ -67,7 +67,7 @@ class PolygonTool extends FabricTool {
     if (_start && _clicked === 0) {
       // Initialize pathString
       this._pathString += `${pointer.x} ${pointer.y} `
-      this.startCircle = new fabric.Circle({
+      this.startCircle = new Circle({
         left: pointer.x,
         top: pointer.y,
         originX: "center",
@@ -94,7 +94,7 @@ class PolygonTool extends FabricTool {
         canvas.remove(this.startCircle)
       }
     }
-    this.currentPath = new fabric.Path(this._pathString, {
+    this.currentPath = new Path(this._pathString, {
       strokeWidth: this.strokeWidth,
       fill: this.fillColor,
       stroke: this.strokeColor,
@@ -143,7 +143,7 @@ class PolygonTool extends FabricTool {
 
     canvas.remove(this.currentLine)
     canvas.remove(this.currentPath)
-    this.currentPath = new fabric.Path(this._pathString, {
+    this.currentPath = new Path(this._pathString, {
       strokeWidth: this.strokeWidth,
       fill: this.fillColor,
       stroke: this.strokeColor,

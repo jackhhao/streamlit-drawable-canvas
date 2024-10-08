@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { Rect } from "fabric"
 import FabricTool, { ConfigureCanvasProps } from "./fabrictool"
 
 class RectTool extends FabricTool {
@@ -6,7 +6,7 @@ class RectTool extends FabricTool {
   fillColor: string = "#ffffff"
   strokeWidth: number = 10
   strokeColor: string = "#ffffff"
-  currentRect: fabric.Rect = new fabric.Rect()
+  currentRect: Rect = new Rect()
   currentStartX: number = 0
   currentStartY: number = 0
   _minLength: number = 10
@@ -44,7 +44,7 @@ class RectTool extends FabricTool {
     let pointer = canvas.getPointer(o.e)
     this.currentStartX = pointer.x
     this.currentStartY = pointer.y
-    this.currentRect = new fabric.Rect({
+    this.currentRect = new Rect({
       left: this.currentStartX,
       top: this.currentStartY,
       originX: "left",

@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { Circle } from "fabric"
 import FabricTool, { ConfigureCanvasProps } from "./fabrictool"
 
 class CircleTool extends FabricTool {
@@ -6,7 +6,7 @@ class CircleTool extends FabricTool {
   fillColor: string = "#ffffff"
   strokeWidth: number = 10
   strokeColor: string = "#ffffff"
-  currentCircle: fabric.Circle = new fabric.Circle()
+  currentCircle: Circle = new Circle()
   currentStartX: number = 0
   currentStartY: number = 0
   _minRadius: number = 10
@@ -44,7 +44,7 @@ class CircleTool extends FabricTool {
     let pointer = canvas.getPointer(o.e)
     this.currentStartX = pointer.x
     this.currentStartY = pointer.y
-    this.currentCircle = new fabric.Circle({
+    this.currentCircle = new Circle({
       left: this.currentStartX,
       top: this.currentStartY,
       originX: "left",

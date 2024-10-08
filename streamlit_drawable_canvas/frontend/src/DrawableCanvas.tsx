@@ -4,7 +4,7 @@ import {
   Streamlit,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import { fabric } from "fabric"
+import { Canvas, Rect, StaticCanvas } from 'fabric'
 import { isEqual } from "lodash"
 
 import CanvasToolbar from "./components/CanvasToolbar"
@@ -67,12 +67,12 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
   /**
    * State initialization
    */
-  const [canvas, setCanvas] = useState(new fabric.Canvas(""))
+  const [canvas, setCanvas] = useState(new Canvas(""))
   canvas.stopContextMenu = true
   canvas.fireRightClick = true
 
   const [backgroundCanvas, setBackgroundCanvas] = useState(
-    new fabric.StaticCanvas("")
+    new StaticCanvas("")
   )
   const {
     canvasState: {
@@ -94,10 +94,10 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
    * NB: Remount component by changing its key instead of defining deps
    */
   useEffect(() => {
-    const c = new fabric.Canvas("canvas", {
+    const c = new Canvas("canvas", {
       enableRetinaScaling: false,
     })
-    const imgC = new fabric.StaticCanvas("backgroundimage-canvas", {
+    const imgC = new StaticCanvas("backgroundimage-canvas", {
       enableRetinaScaling: false,
     })
     setCanvas(c)

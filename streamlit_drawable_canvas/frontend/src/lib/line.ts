@@ -1,11 +1,11 @@
-import { fabric } from "fabric"
+import { Line } from "fabric"
 import FabricTool, { ConfigureCanvasProps } from "./fabrictool"
 
 class LineTool extends FabricTool {
   isMouseDown: boolean = false
   strokeWidth: number = 10
   strokeColor: string = "#ffffff"
-  currentLine: fabric.Line = new fabric.Line()
+  currentLine: Line = new Line()
 
   configureCanvas({
     strokeWidth,
@@ -35,8 +35,8 @@ class LineTool extends FabricTool {
     let _clicked = o.e["button"]
     this.isMouseDown = true
     var pointer = canvas.getPointer(o.e)
-    var points = [pointer.x, pointer.y, pointer.x, pointer.y]
-    this.currentLine = new fabric.Line(points, {
+    const points: [number, number, number, number] = [pointer.x, pointer.y, pointer.x, pointer.y]
+    this.currentLine = new Line(points, {
       strokeWidth: this.strokeWidth,
       fill: this.strokeColor,
       stroke: this.strokeColor,

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Streamlit } from "streamlit-component-lib"
-import { fabric } from "fabric"
+import { Canvas } from "fabric"
 
 const DELAY_DEBOUNCE = 200
 
 /**
  * Download image and JSON data from canvas to send back to Streamlit
  */
-const sendDataToStreamlit = (canvas: fabric.Canvas): void => {
+const sendDataToStreamlit = (canvas: Canvas): void => {
   const data = canvas
     .getContext()
     .canvas.toDataURL()
@@ -62,7 +62,7 @@ interface UpdateStreamlitProps {
  * Put it in the background or make it invisible!
  */
 const UpdateStreamlit = (props: UpdateStreamlitProps) => {
-  const [stCanvas, setStCanvas] = useState(new fabric.Canvas(""))
+  const [stCanvas, setStCanvas] = useState(new Canvas(""))
 
   // Debounce fast changing canvas states
   // Especially when drawing lines and circles which continuously render while drawing
@@ -73,7 +73,7 @@ const UpdateStreamlit = (props: UpdateStreamlitProps) => {
 
   // Initialize canvas
   useEffect(() => {
-    const stC = new fabric.Canvas("canvas-to-streamlit", {
+    const stC = new Canvas("canvas-to-streamlit", {
       enableRetinaScaling: false,
     })
     setStCanvas(stC)

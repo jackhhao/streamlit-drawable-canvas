@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { Canvas } from "fabric"
 
 export interface ConfigureCanvasProps {
     fillColor: string
@@ -11,12 +11,12 @@ export interface ConfigureCanvasProps {
  * Base class for any fabric tool that configures and draws on canvas
  */
 abstract class FabricTool {
-  protected _canvas: fabric.Canvas
+  protected _canvas: Canvas
 
   /**
    * Pass Fabric canvas by reference so tools can configure it
    */
-  constructor(canvas: fabric.Canvas) {
+  constructor(canvas: Canvas) {
     this._canvas = canvas
   }
 

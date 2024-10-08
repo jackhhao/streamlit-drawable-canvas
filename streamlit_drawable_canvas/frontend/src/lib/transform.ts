@@ -10,7 +10,8 @@ class TransformTool extends FabricTool {
     // instead of looking for target of double click,
     // assume double click on object clears the selected object
     const handleDoubleClick = () => {
-      canvas.remove(canvas.getActiveObject())
+        canvas.discardActiveObject()
+        canvas.renderAll()
     }
 
     canvas.on("mouse:dblclick", handleDoubleClick)
