@@ -78,30 +78,39 @@ const canvasStateReducer = (
   state: CanvasState,
   action: Action
 ): CanvasState => {
+  console.log("Action type:", action.type);
+  console.log("Action state:", action.state);
+  console.log("State:", state);
   switch (action.type) {
     case "save":
       if (!action.state) throw new Error("No action state to save")
       else if (isEmpty(state.currentState)) {
-        return {
+        console.log("empty state currentState");
+        const obj = {
           history: {
             undoStack: [],
             redoStack: [],
           },
           action: { ...NO_ACTION },
-          initialState: action.state,
+          initialState: state.initialState,
           currentState: action.state,
         }
-      } else if (isEqual(action.state, state.currentState))
-        return {
+        console.log(`saving with empty currentState with status %o`, obj);
+        return obj;
+      } else if (isEqual(action.state, state.currentState)) {
+        console.log("equal action state and currentstate");
+        const obj = {
           history: { ...state.history },
           action: { ...NO_ACTION },
           initialState: state.initialState,
           currentState: state.currentState,
         }
-      else {
+        console.log(`saving with equal action state and currentstate with status %o`, obj);
+        return obj;
+      } else {
         const undoOverHistoryMaxCount =
           state.history.undoStack.length >= HISTORY_MAX_COUNT
-        return {
+        const obj = {
           history: {
             undoStack: [
               ...state.history.undoStack.slice(undoOverHistoryMaxCount ? 1 : 0),
@@ -116,6 +125,8 @@ const canvasStateReducer = (
               : state.initialState,
           currentState: action.state,
         }
+        console.log(`saving with status %o`, obj);
+        return obj;
       }
     case "undo":
       const lastState = state.history.undoStack[state.history.undoStack.length - 1];
@@ -125,25 +136,30 @@ const canvasStateReducer = (
         isEmpty(state.currentState) ||
         isEqual(state.initialState, state.currentState)
       ) {
-        return {
+        const obj = {
           history: { ...state.history },
           action: { ...NO_ACTION },
           initialState: state.initialState,
           currentState: state.currentState,
         }
+        console.log(`undoing with empty currentState with status %o`, obj);
+        return obj;
       } else {
         const isUndoEmpty = state.history.undoStack.length === 0
-        return {
+        const obj = {
           history: {
             undoStack: state.history.undoStack.slice(0, -1),
             redoStack: [...state.history.redoStack, state.currentState],
           },
-          action: { ...RELOAD_CANVAS },
+          // action: { ...RELOAD_CANVAS },
+          action: { ...NO_ACTION },
           initialState: state.initialState,
           currentState: isUndoEmpty
             ? state.currentState
             : state.history.undoStack[state.history.undoStack.length - 1],
         }
+        console.log(`undoing normally with status %o`, obj);
+        return obj;
       }
     case "redo":
       if (state.history.redoStack.length > 0) {

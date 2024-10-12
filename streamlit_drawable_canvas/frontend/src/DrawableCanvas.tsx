@@ -67,6 +67,7 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
   /**
    * State initialization
    */
+  console.log(args);
   const [canvas, setCanvas] = useState(new Canvas(""))
   canvas.stopContextMenu = true
   canvas.fireRightClick = true
