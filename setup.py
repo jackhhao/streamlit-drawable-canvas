@@ -22,7 +22,7 @@ setuptools.setup(
     long_description=readme(),
     long_description_content_type="text/markdown",
     url="https://github.com/andfanilo/streamlit-drawable-canvas",
-    packages=setuptools.find_packages(),
+    packages=["streamlit_drawable_canvas"],
     include_package_data=True,
     classifiers=[],
     python_requires=">=3.6",
