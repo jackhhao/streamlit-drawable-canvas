@@ -169,7 +169,7 @@ const canvasStateReducer = (
             undoStack: [...state.history.undoStack, state.currentState],
             redoStack: state.history.redoStack.slice(0, -1),
           },
-          action: { ...RELOAD_CANVAS },
+          action: { ...NO_ACTION },
           initialState: state.initialState,
           currentState:
             state.history.redoStack[state.history.redoStack.length - 1],
