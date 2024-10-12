@@ -177,23 +177,34 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
     console.log(`Selected fillColor: ${fillColor}`);
     console.log(`Selected strokeColor: ${strokeColor}`);
 
-    canvas.on("mouse:up", (e: any) => {
+    const handleMouseUp = (e: any) => {
+      console.log("Mouse up");
+      console.log(canvas.toJSON());
       saveState(canvas.toJSON())
-      if (e["button"] === 3) {
+      if (e.button === 3) {
         forceStreamlitUpdate()
       }
-    })
+    }
+    console.log("Canvas toJSON:");
+    console.log(canvas.toJSON());
 
-    canvas.on("mouse:dblclick", () => {
+    // Event: double click (handle double clicks)
+    const handleMouseDblClick = () => {
+      console.log("Double click");
+      console.log(canvas.toJSON());
       saveState(canvas.toJSON())
-    })
+    }
 
-    // Cleanup tool + send data to Streamlit events
+    canvas.on("mouse:up", handleMouseUp)
+    canvas.on("mouse:dblclick", handleMouseDblClick)
+
+    // Clean up event listeners when the tool changes or component unmounts
     return () => {
       cleanupToolEvents()
-      canvas.off("mouse:up")
-      canvas.off("mouse:dblclick")
+      canvas.off("mouse:up", handleMouseUp)
+      canvas.off("mouse:dblclick", handleMouseDblClick)
     }
+
   }, [
     canvas,
     strokeWidth,
