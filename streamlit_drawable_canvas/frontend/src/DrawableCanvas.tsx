@@ -111,10 +111,13 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
    * Python-side is in charge of initializing drawing with background color if none provided
    */
   useEffect(() => {
+    console.log("Resetting state with initial drawing");
     if (!isEqual(initialState, initialDrawing)) {
       canvas.loadFromJSON(initialDrawing, () => {
-        canvas.renderAll()
         resetState(initialDrawing)
+      })
+      .then(() => {
+        canvas.renderAll() // TODO: check if must rerender before resetting state
       })
     }
   }, [canvas, initialDrawing, initialState, resetState])
@@ -156,7 +159,9 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
    */
   useEffect(() => {
     if (shouldReloadCanvas) {
-      canvas.loadFromJSON(currentState, () => {})
+      canvas.loadFromJSON(currentState, () => {}).then(() => {
+        canvas.renderAll()
+      })
     }
   }, [canvas, shouldReloadCanvas, currentState])
 

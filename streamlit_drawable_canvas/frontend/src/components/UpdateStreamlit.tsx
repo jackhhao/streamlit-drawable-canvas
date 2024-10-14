@@ -82,11 +82,20 @@ const UpdateStreamlit = (props: UpdateStreamlitProps) => {
   // Load state to canvas, then send content to Streamlit
   useEffect(() => {
     if (debouncedStateToSend && props.shouldSendToStreamlit) {
-      stCanvas.loadFromJSON(debouncedStateToSend, () => {
-        sendDataToStreamlit(stCanvas)
+      console.log("debounced state updatestreamlit:")
+      console.log(debouncedStateToSend);
+      stCanvas.loadFromJSON(debouncedStateToSend, () => {}).then(() => {
+        // console.log(`before: %o`, stCanvas);
+        sendDataToStreamlit(stCanvas);
+        stCanvas.renderAll();
       })
-    }
-  }, [stCanvas, props.shouldSendToStreamlit, debouncedStateToSend])
+      // }).then(() => {
+      //   // console.log(`after: %o`, stCanvas);
+      // })
+      // .then(() => {
+      //   stCanvas.renderAll();
+      // })
+    }}, [stCanvas, props.shouldSendToStreamlit, debouncedStateToSend])
 
   return (
     <canvas
