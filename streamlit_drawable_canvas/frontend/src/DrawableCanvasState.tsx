@@ -88,10 +88,10 @@ const canvasStateReducer = (
         console.log("empty state currentState");
         const obj = {
           history: {
-            undoStack: [],
+            undoStack: [state.initialState],
             redoStack: [],
           },
-          action: { ...NO_ACTION },
+          action: { ...RELOAD_AND_SEND_TO_STREAMLIT }, // TODO: check if this is correct
           initialState: state.initialState,
           currentState: action.state,
         }
@@ -152,10 +152,10 @@ const canvasStateReducer = (
             redoStack: [...state.history.redoStack, state.currentState],
           },
           // action: { ...RELOAD_CANVAS },
-          action: { ...NO_ACTION },
+          action: { ...RELOAD_AND_SEND_TO_STREAMLIT },
           initialState: state.initialState,
           currentState: isUndoEmpty
-            ? state.currentState
+            ? state.initialState
             : state.history.undoStack[state.history.undoStack.length - 1],
         }
         console.log(`undoing normally with status %o`, obj);
@@ -169,7 +169,7 @@ const canvasStateReducer = (
             undoStack: [...state.history.undoStack, state.currentState],
             redoStack: state.history.redoStack.slice(0, -1),
           },
-          action: { ...NO_ACTION },
+          action: { ...RELOAD_AND_SEND_TO_STREAMLIT },
           initialState: state.initialState,
           currentState:
             state.history.redoStack[state.history.redoStack.length - 1],
