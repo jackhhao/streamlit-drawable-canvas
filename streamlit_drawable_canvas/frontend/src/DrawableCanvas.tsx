@@ -131,12 +131,30 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
       bgImage.onload = function() {
         backgroundCanvas.getContext().drawImage(bgImage, 0, 0);
       };
+      var retryCount = 0;
+      const maxRetries = 5;
+
       const baseUrl = getStreamlitBaseUrl();
       let urlOrigin = baseUrl?.origin ?? "";
       
       if (baseUrl?.origin?.includes("streamlit")) {
         urlOrigin += "/~/+"; // proper full link for streamlit media
       }
+
+      bgImage.onerror = function() {
+        if (retryCount < maxRetries) {
+            retryCount++;
+            // console.log("Retry loading image, attempt: " + retryCount);
+            setTimeout(() => {
+                // Update the src to trigger a reload
+                bgImage.src = urlOrigin + backgroundImageURL + "?retry=" + retryCount;
+            }, retryCount * 1000); // Wait 1 second for the first retry, 2 seconds for the second
+        } else {
+            console.error("Failed to load the image after " + maxRetries + " retries.");
+        }
+      };
+
+      // console.log(`image loaded after ${retryCount + 1} tries`);
 
       bgImage.src = urlOrigin + backgroundImageURL
       // console.log(baseUrl);
