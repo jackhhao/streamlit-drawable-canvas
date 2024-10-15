@@ -197,29 +197,50 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
       displayRadius: displayRadius
     })
 
-    console.log(`Selected fillColor: ${fillColor}`);
-    console.log(`Selected strokeColor: ${strokeColor}`);
+    // console.log(`Selected fillColor: ${fillColor}`);
+    // console.log(`Selected strokeColor: ${strokeColor}`);
 
     const handleMouseUp = (e: any) => {
-      console.log("Mouse up");
-      console.log(canvas.toJSON());
+      // console.log("Mouse up");
+      // console.log(e);
+      // console.log(canvas)
+      // console.log(canvas.toJSON());
       saveState(canvas.toJSON())
-      if (e.button === 3) {
+      // if (e["button"] === 3) {
         forceStreamlitUpdate()
-      }
+      // }
     }
-    console.log("Canvas toJSON:");
-    console.log(canvas.toJSON());
+    // console.log("Canvas toJSON:");
+    // console.log(canvas.toJSON());
 
     // Event: double click (handle double clicks)
     const handleMouseDblClick = () => {
-      console.log("Double click");
-      console.log(canvas.toJSON());
+      // console.log("Double click");
+      // console.log(canvas.toJSON());
       saveState(canvas.toJSON())
     }
 
     canvas.on("mouse:up", handleMouseUp)
     canvas.on("mouse:dblclick", handleMouseDblClick)
+    canvas.on("path:created", (e: any) => {
+      // console.log("Path created");
+      // console.log(e);
+      // console.log(canvas.toJSON());
+      saveState(canvas.toJSON())
+    })
+    canvas.on("object:modified", (e: any) => {
+      // console.log("Object modified");
+      // console.log(e);
+      // console.log(canvas.toJSON());
+      saveState(canvas.toJSON())
+    })
+
+    canvas.on("object:added", (e: any) => {
+      // console.log("Object added");
+      // console.log(e);
+      // console.log(canvas.toJSON());
+      saveState(canvas.toJSON())
+    })
 
     // Clean up event listeners when the tool changes or component unmounts
     return () => {

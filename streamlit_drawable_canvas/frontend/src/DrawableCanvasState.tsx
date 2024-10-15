@@ -101,7 +101,7 @@ const canvasStateReducer = (
         // console.log("equal action state and currentstate");
         const obj = {
           history: { ...state.history },
-          action: { ...NO_ACTION },
+          action: { ...RELOAD_AND_SEND_TO_STREAMLIT },
           initialState: state.initialState,
           currentState: state.currentState,
         }
@@ -118,7 +118,7 @@ const canvasStateReducer = (
             ],
             redoStack: [],
           },
-          action: { ...NO_ACTION },
+          action: { ...RELOAD_AND_SEND_TO_STREAMLIT },
           initialState:
             state.initialState == null
               ? state.currentState
