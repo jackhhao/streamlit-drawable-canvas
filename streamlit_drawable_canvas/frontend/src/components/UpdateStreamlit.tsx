@@ -17,6 +17,16 @@ const sendDataToStreamlit = (canvas: Canvas): void => {
     height: canvas.getHeight(),
     raw: canvas.toObject(),
   })
+  // console.log("actual canvas:");
+  // console.log(canvas);
+  // console.log("canvas data:");
+  // console.log(data);
+  // console.log("canvas object:");
+  // console.log(canvas.toObject());
+  // console.log("canvas object w/ explicit prop objects:");
+  // console.log(canvas.toObject(['objects']));
+  // console.log("canvas json:");
+  // console.log(canvas.toJSON());
 }
 
 /**
@@ -82,15 +92,15 @@ const UpdateStreamlit = (props: UpdateStreamlitProps) => {
   // Load state to canvas, then send content to Streamlit
   useEffect(() => {
     if (debouncedStateToSend && props.shouldSendToStreamlit) {
-      console.log("debounced state updatestreamlit:")
-      console.log(debouncedStateToSend);
+      // console.log("debounced state updatestreamlit:")
+      // console.log(debouncedStateToSend);
       stCanvas.loadFromJSON(debouncedStateToSend, () => {}).then(() => {
-        // console.log(`before: %o`, stCanvas);
+        // // console.log(`before: %o`, stCanvas);
         sendDataToStreamlit(stCanvas);
         stCanvas.renderAll();
       })
       // }).then(() => {
-      //   // console.log(`after: %o`, stCanvas);
+      //   // // console.log(`after: %o`, stCanvas);
       // })
       // .then(() => {
       //   stCanvas.renderAll();

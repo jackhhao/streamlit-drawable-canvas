@@ -67,7 +67,7 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
   /**
    * State initialization
    */
-  console.log(args);
+  // console.log(args);
   const [canvas, setCanvas] = useState(new Canvas(""))
   canvas.stopContextMenu = true
   canvas.fireRightClick = true
@@ -111,7 +111,7 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
    * Python-side is in charge of initializing drawing with background color if none provided
    */
   useEffect(() => {
-    console.log("Resetting state with initial drawing");
+    // console.log("Resetting state with initial drawing");
     if (!isEqual(initialState, initialDrawing)) {
       canvas.loadFromJSON(initialDrawing, () => {
         resetState(initialDrawing)
@@ -139,10 +139,10 @@ const DrawableCanvas = ({ args }: ComponentProps) => {
       }
 
       bgImage.src = urlOrigin + backgroundImageURL
-      console.log(baseUrl);
-      console.log(backgroundImageURL);
-      console.log(bgImage.src);
-      console.log();
+      // console.log(baseUrl);
+      // console.log(backgroundImageURL);
+      // console.log(bgImage.src);
+      // console.log();
     }
   }, [
     canvas,
